@@ -1,7 +1,6 @@
 package hu.schzsolt.dao;
 
 import hu.schzsolt.dao.entity.PlayerEntity;
-import hu.schzsolt.dao.entity.StatsEntity;
 import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.model.Player;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import java.util.stream.StreamSupport;
 public class PlayerDaoImpl implements PlayerDao{
 
     private final PlayerRepository playerRepository;
-    private final TeamRepository teamRepository;
 
     @Override
     public void createPlayer(Player player) throws UnknownPlayerException {
@@ -72,6 +70,5 @@ public class PlayerDaoImpl implements PlayerDao{
         }
         playerRepository.delete(playerEntity.get());
     }
-
 
 }
