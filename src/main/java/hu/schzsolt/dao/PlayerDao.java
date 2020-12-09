@@ -4,6 +4,8 @@ import hu.schzsolt.model.Player;
 
 import java.util.Collection;
 
+import hu.schzsolt.exceptions.UnknownPlayerException;
+
 /**
  * DAO = Data Access Object
  *
@@ -15,8 +17,8 @@ import java.util.Collection;
  */
 public interface PlayerDao {
 
-    void createPlayer(Player player);
+    void createPlayer(Player player) throws UnknownPlayerException;
     Collection<Player> readAll();
 
-    void deleteAddress(Player player);
+    void deletePlayer(Player player) throws UnknownPlayerException;
 }
