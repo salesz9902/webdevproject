@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class MatchEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mid")
     private String id;
 
@@ -29,6 +30,22 @@ public class MatchEntity {
     @ManyToOne
     @JoinColumn(name = "tid2")
     private TeamEntity team2;
+
+    @ManyToOne
+    @JoinColumn(name = "gl")
+    private StatsEntity goals;
+
+    @ManyToOne
+    @JoinColumn(name = "di")
+    private StatsEntity disposals;
+
+    @ManyToOne
+    @JoinColumn(name = "loc")
+    private StatsEntity location;
+
+    @ManyToOne
+    @JoinColumn(name = "ki")
+    private StatsEntity kicks;
 
     @Column(name = "tid1_loc")
     private String team1Location;

@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class TeamEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tid")
     private String id;
 

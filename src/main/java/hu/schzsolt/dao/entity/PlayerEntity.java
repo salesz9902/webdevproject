@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class PlayerEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pid")
     private String id;
 
