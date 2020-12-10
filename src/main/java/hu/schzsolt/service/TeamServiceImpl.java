@@ -28,7 +28,7 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public void deleteTeam(Team team) throws UnknownTeamException, UnknownPlayerException {
+    public void deleteTeam(Integer team) throws UnknownTeamException, UnknownPlayerException {
         teamDao.deleteTeam(team);
     }
 }

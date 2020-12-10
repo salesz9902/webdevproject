@@ -20,5 +20,5 @@ public interface PlayerDao {
     void createPlayer(Player player) throws UnknownPlayerException;
     Collection<Player> readAll();
 
-    void deletePlayer(Player player) throws UnknownPlayerException;
+    void deletePlayer(Integer player) throws UnknownPlayerException;
 }

@@ -1,6 +1,7 @@
 package hu.schzsolt.controller;
 
 import hu.schzsolt.controller.dto.PlayerDto;
+import hu.schzsolt.exceptions.UnknownMatchException;
 import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.model.Player;
 import hu.schzsolt.service.PlayerService;
@@ -20,18 +21,6 @@ import java.util.stream.Collectors;
 public class PlayerController {
 
     private final PlayerService service;
-
-    @GetMapping("/hello")
-    public String hello(@RequestParam(name = "name", defaultValue = "World", required = false) String name) {
-        return String.format("Hello %s!", name);
-    }
-
-    @ApiOperation("Say Hello from Path")
-    @GetMapping("/hello/{name}")
-    public String helloPath(@PathVariable("name") String name) {
-        return String.format("Hello %s!", name);
-    }
-
 
     @GetMapping("/player")
     public Collection<PlayerDto> listPlayers() {
@@ -58,6 +47,15 @@ public class PlayerController {
                     playerDto.getBirthDate()
             ));
         } catch (UnknownPlayerException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/player")
+    private void deleteById(@RequestBody Integer id) {
+        try {
+            service.deletePlayer(id);
+        } catch ( UnknownPlayerException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }

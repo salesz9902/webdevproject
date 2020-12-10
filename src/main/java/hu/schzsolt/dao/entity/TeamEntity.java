@@ -16,7 +16,7 @@ public class TeamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tid")
-    private String id;
+    private Integer id;
 
     @Column(name = "tname")
     private String teamName;

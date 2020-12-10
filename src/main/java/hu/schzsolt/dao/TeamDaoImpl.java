@@ -1,7 +1,9 @@
 package hu.schzsolt.dao;
 
 
+import hu.schzsolt.dao.entity.PlayerEntity;
 import hu.schzsolt.dao.entity.TeamEntity;
+import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.exceptions.UnknownTeamException;
 import hu.schzsolt.model.Team;
 import lombok.RequiredArgsConstructor;
@@ -46,16 +48,19 @@ public class TeamDaoImpl implements TeamDao{
     }
 
     @Override
-    public void deleteTeam(Team team) throws UnknownTeamException {
-        Optional<TeamEntity> teamEntity = StreamSupport.stream(teamRepository.findAll().spliterator(),false).filter(
-                entity ->{
-                    return team.getName().equals(entity.getTeamName());
-                }
-        ).findAny();
-        if(!teamEntity.isPresent()){
-            throw new UnknownTeamException(String.format("Team Not Found %s",team), team);
-        }
-        teamRepository.delete(teamEntity.get());
+    public void deleteTeam(Integer id) throws UnknownTeamException {
+        TeamEntity teamEntity = queryTeam(id);
+        log.info("Deleting inventory {}", teamEntity);
+        teamRepository.delete(teamEntity);
+    }
+
+    protected TeamEntity queryTeam(Integer id) throws UnknownTeamException {
+        Optional<TeamEntity> teamEntity = teamRepository.findById(id);
+
+        if (!teamEntity.isPresent())
+            throw new UnknownTeamException();
+
+        return teamEntity.get();
     }
 
 }

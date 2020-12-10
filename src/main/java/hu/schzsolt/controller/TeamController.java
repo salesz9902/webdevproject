@@ -42,5 +42,14 @@ public class TeamController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @DeleteMapping("/team")
+    private void deleteById(@RequestBody Integer id) {
+        try {
+            service.deleteTeam(id);
+        } catch (UnknownTeamException | UnknownPlayerException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }
 

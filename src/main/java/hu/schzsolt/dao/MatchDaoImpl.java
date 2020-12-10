@@ -9,6 +9,7 @@ import hu.schzsolt.model.Match;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -124,11 +125,11 @@ public class MatchDaoImpl implements MatchDao{
     }
 
     protected MatchEntity queryMatch(String id) throws UnknownMatchException {
-        Optional<MatchEntity> filmEntity = matchRepository.findById(id);
+        Optional<MatchEntity> matchEntity = matchRepository.findById(id);
 
-        if (!filmEntity.isPresent())
+        if (!matchEntity.isPresent())
             throw new UnknownMatchException();
 
-        return filmEntity.get();
+        return matchEntity.get();
     }
 }

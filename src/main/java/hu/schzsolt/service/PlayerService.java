@@ -10,5 +10,5 @@ public interface PlayerService {
     Collection<Player> getAllPlayer();
 
     void recordPlayer(Player player) throws UnknownPlayerException;
-    void deletePlayer(Player player) throws UnknownPlayerException;
+    void deletePlayer(Integer player) throws UnknownPlayerException;
 }

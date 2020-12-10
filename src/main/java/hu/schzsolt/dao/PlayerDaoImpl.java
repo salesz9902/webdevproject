@@ -1,6 +1,8 @@
 package hu.schzsolt.dao;
 
+import hu.schzsolt.dao.entity.MatchEntity;
 import hu.schzsolt.dao.entity.PlayerEntity;
+import hu.schzsolt.exceptions.UnknownMatchException;
 import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.model.Player;
 import lombok.RequiredArgsConstructor;
@@ -55,20 +57,19 @@ public class PlayerDaoImpl implements PlayerDao{
     }
 
     @Override
-    public void deletePlayer(Player player) throws UnknownPlayerException {
-        Optional<PlayerEntity> playerEntity = StreamSupport.stream(playerRepository.findAll().spliterator(),false).filter(
-                entity ->{
-                            return player.getFirstName().equals(entity.getFirstName())  &&
-                            player.getLastName().equals(entity.getLastName()) &&
-                            player.getHeight().equals(entity.getHeight()) &&
-                            player.getWeight().equals(entity.getWeight()) &&
-                            player.getBirthDate().equals(entity.getDateOfBirth());
-                }
-        ).findAny();
-        if(!playerEntity.isPresent()){
-            throw new UnknownPlayerException(String.format("Player Not Found %s",player), player);
-        }
-        playerRepository.delete(playerEntity.get());
+    public void deletePlayer(Integer id) throws UnknownPlayerException {
+        PlayerEntity playerEntity = queryPlayer(id);
+        log.info("Deleting inventory {}", playerEntity);
+        playerRepository.delete(playerEntity);
+    }
+
+    protected PlayerEntity queryPlayer(Integer id) throws UnknownPlayerException {
+        Optional<PlayerEntity> playerEntity = playerRepository.findById(id);
+
+        if (!playerEntity.isPresent())
+            throw new UnknownPlayerException();
+
+        return playerEntity.get();
     }
 
 }

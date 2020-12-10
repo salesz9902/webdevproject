@@ -11,5 +11,5 @@ public interface TeamService {
     Collection<Team> getAllTeam();
 
     void recordTeam(Team team) throws UnknownTeamException, UnknownPlayerException;
-    void deleteTeam(Team team) throws UnknownTeamException, UnknownPlayerException;
+    void deleteTeam(Integer team) throws UnknownTeamException, UnknownPlayerException;
 }

@@ -16,7 +16,7 @@ public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pid")
-    private String id;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;

@@ -29,7 +29,7 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public void deletePlayer(Player player) throws UnknownPlayerException {
+    public void deletePlayer(Integer player) throws UnknownPlayerException {
        playerDao.deletePlayer(player);
     }
 }
