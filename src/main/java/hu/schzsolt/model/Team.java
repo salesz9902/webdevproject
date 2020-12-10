@@ -1,5 +1,7 @@
 package hu.schzsolt.model;
 
+import hu.schzsolt.dao.entity.StatsEntity;
+import hu.schzsolt.dao.entity.TeamEntity;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
