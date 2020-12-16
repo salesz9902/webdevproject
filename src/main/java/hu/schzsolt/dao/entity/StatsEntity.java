@@ -10,12 +10,32 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "match_stats")
+@Table(name = "match_stats", schema="australianfootball")
 
 public class StatsEntity {
 
-    @Id
+    @EmbeddedId()
+    private key key;
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @ToString
+    @Embeddable
+    public static class key implements java.io.Serializable{
+        @Column(name="mid")
+        private String mid;
+
+        @Column(name="pid")
+        private int pid;
+    }
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne
+    @JoinColumn(name="tid")
+    private TeamEntity team;
+
     @Column(name = "loc")
     private String location;
 
