@@ -10,6 +10,7 @@ public interface TeamService {
 
     Collection<Team> getAllTeam();
 
-    void recordTeam(Team team) throws UnknownTeamException, UnknownPlayerException;
-    void deleteTeam(Integer team) throws UnknownTeamException, UnknownPlayerException;
+    void recordTeam(Team team) throws UnknownTeamException;
+    void updateTeam(Team team) throws UnknownTeamException;
+    void deleteTeam(Integer team) throws UnknownTeamException;
 }

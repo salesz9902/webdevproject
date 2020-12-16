@@ -13,5 +13,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Team {
 
+    private Integer id;
     private String name;
 }

@@ -23,7 +23,7 @@ public class TeamDaoImpl implements TeamDao{
     private final TeamRepository teamRepository;
 
     @Override
-    public void createTeam(Team team) throws UnknownTeamException {
+    public void createTeam(Team team) {
         TeamEntity teamEntity;
 
         teamEntity = TeamEntity.builder()
@@ -42,9 +42,25 @@ public class TeamDaoImpl implements TeamDao{
     public Collection<Team> readAll() {
         return StreamSupport.stream(teamRepository.findAll().spliterator(),false)
                 .map(entity -> new Team(
+                        entity.getId(),
                         entity.getTeamName()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateTeam(Team team) throws UnknownTeamException {
+        Optional<TeamEntity> teamEntity = teamRepository.findById(team.getId());
+        if (teamEntity.isEmpty()){
+            throw new UnknownTeamException(String.format("Team Not Found %s",team));
+        }
+        teamEntity.get().setTeamName(team.getName());
+
+        try {
+            teamRepository.save(teamEntity.get());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Override

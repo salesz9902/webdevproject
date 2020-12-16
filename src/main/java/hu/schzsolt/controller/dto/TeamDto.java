@@ -10,5 +10,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamDto {
+    private Integer id;
     private String teamName;
 }

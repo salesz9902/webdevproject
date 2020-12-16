@@ -1,11 +1,9 @@
 package hu.schzsolt.controller;
 
 import hu.schzsolt.controller.dto.TeamDto;
-import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.exceptions.UnknownTeamException;
 import hu.schzsolt.model.Team;
 import hu.schzsolt.service.TeamService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,32 +20,45 @@ public class TeamController {
 
     private final TeamService service;
 
-    @GetMapping("/team")
-    public Collection<TeamDto> listTeams() {
-        return service.getAllTeam()
-                .stream()
-                .map(model -> TeamDto.builder()
-                        .teamName(model.getName())
-                        .build())
+    @GetMapping("/teams/list")
+    public Collection<TeamDto> listTeam(){
+        return service.getAllTeam().stream()
+                .map(model -> new TeamDto(
+                        model.getId(),
+                        model.getName()
+                ))
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/team")
+    @PostMapping("/team/record")
     public void record(@RequestBody TeamDto teamDto) {
         try {
             service.recordTeam(new Team(
+                    teamDto.getId(),
                     teamDto.getTeamName()
             ));
-        } catch (UnknownPlayerException | UnknownTeamException e) {
+        } catch (UnknownTeamException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
-    @DeleteMapping("/team")
+    @PostMapping("/team/update")
+    public void updateTeam(@RequestBody TeamDto teamDto){
+        try {
+            service.updateTeam(new Team(
+                    teamDto.getId(),
+                    teamDto.getTeamName()
+            ));
+        } catch (UnknownTeamException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/team/delete")
     private void deleteById(@RequestBody Integer id) {
         try {
             service.deleteTeam(id);
-        } catch (UnknownTeamException | UnknownPlayerException e) {
+        } catch (UnknownTeamException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }

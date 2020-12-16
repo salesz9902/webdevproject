@@ -23,12 +23,17 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public void recordTeam(Team team) throws UnknownTeamException, UnknownPlayerException {
+    public void recordTeam(Team team) throws UnknownTeamException {
         teamDao.createTeam(team);
     }
 
     @Override
-    public void deleteTeam(Integer team) throws UnknownTeamException, UnknownPlayerException {
+    public void updateTeam(Team team) throws UnknownTeamException {
+        teamDao.updateTeam(team);
+    }
+
+    @Override
+    public void deleteTeam(Integer team) throws UnknownTeamException {
         teamDao.deleteTeam(team);
     }
 }
