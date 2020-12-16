@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+
 @AllArgsConstructor
 @ToString
 @Getter
@@ -13,7 +15,7 @@ public class Player {
 
     private String firstName;
     private String lastName;
-    private String height;
-    private String weight;
-    private String birthDate;
+    private Integer height;
+    private Integer weight;
+    private Timestamp birthDate;
 }

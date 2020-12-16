@@ -1,8 +1,6 @@
 package hu.schzsolt.dao;
 
-import hu.schzsolt.dao.entity.MatchEntity;
 import hu.schzsolt.dao.entity.PlayerEntity;
-import hu.schzsolt.exceptions.UnknownMatchException;
 import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.model.Player;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +12,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -24,7 +20,7 @@ public class PlayerDaoImpl implements PlayerDao{
     private final PlayerRepository playerRepository;
 
     @Override
-    public void createPlayer(Player player) throws UnknownPlayerException {
+    public void createPlayer(Player player) throws UnknownPlayerException{
         PlayerEntity playerEntity;
 
         playerEntity = PlayerEntity.builder()

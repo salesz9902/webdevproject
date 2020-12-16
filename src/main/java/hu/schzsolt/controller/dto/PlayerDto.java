@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.sql.Timestamp;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 public class PlayerDto {
     private String firstName;
     private String lastName;
-    private String height;
-    private String weight;
+    private Integer height;
+    private Integer weight;
     private String birthDate;
 }

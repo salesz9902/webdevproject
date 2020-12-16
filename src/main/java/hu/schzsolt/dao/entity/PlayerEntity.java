@@ -2,6 +2,7 @@ package hu.schzsolt.dao.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -25,11 +26,11 @@ public class PlayerEntity {
     private String lastName;
 
     @Column(name = "height")
-    private String height;
+    private Integer height;
 
     @Column(name = "weight")
-    private String weight;
+    private Integer weight;
 
     @Column(name = "dob")
-    private String dateOfBirth;
+    private Timestamp dateOfBirth;
 }

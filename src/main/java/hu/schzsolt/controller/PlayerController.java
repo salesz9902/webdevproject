@@ -1,17 +1,16 @@
 package hu.schzsolt.controller;
 
 import hu.schzsolt.controller.dto.PlayerDto;
-import hu.schzsolt.exceptions.UnknownMatchException;
 import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.model.Player;
 import hu.schzsolt.service.PlayerService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,7 @@ public class PlayerController {
                         .lastName(model.getLastName())
                         .height(model.getHeight())
                         .weight(model.getWeight())
-                        .birthDate(model.getBirthDate())
+                        .birthDate(model.getBirthDate().toString())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -44,7 +43,7 @@ public class PlayerController {
                     playerDto.getLastName(),
                     playerDto.getHeight(),
                     playerDto.getWeight(),
-                    playerDto.getBirthDate()
+                    Timestamp.valueOf(playerDto.getBirthDate())
             ));
         } catch (UnknownPlayerException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
