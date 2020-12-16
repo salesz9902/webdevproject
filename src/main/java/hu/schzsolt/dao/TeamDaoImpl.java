@@ -1,9 +1,6 @@
 package hu.schzsolt.dao;
 
-
-import hu.schzsolt.dao.entity.PlayerEntity;
 import hu.schzsolt.dao.entity.TeamEntity;
-import hu.schzsolt.exceptions.UnknownPlayerException;
 import hu.schzsolt.exceptions.UnknownTeamException;
 import hu.schzsolt.model.Team;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +24,7 @@ public class TeamDaoImpl implements TeamDao{
         TeamEntity teamEntity;
 
         teamEntity = TeamEntity.builder()
+                .id(team.getId())
                 .teamName(team.getName())
                 .build();
         log.info("TeamEntity: {}", teamEntity);
@@ -46,21 +44,6 @@ public class TeamDaoImpl implements TeamDao{
                         entity.getTeamName()
                 ))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void updateTeam(Team team) throws UnknownTeamException {
-        Optional<TeamEntity> teamEntity = teamRepository.findById(team.getId());
-        if (teamEntity.isEmpty()){
-            throw new UnknownTeamException(String.format("Team Not Found %s",team));
-        }
-        teamEntity.get().setTeamName(team.getName());
-
-        try {
-            teamRepository.save(teamEntity.get());
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
     }
 
     @Override

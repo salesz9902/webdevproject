@@ -21,11 +21,12 @@ public class MatchController {
 
     private final MatchService service;
 
-    @GetMapping("/match")
+    @GetMapping("/match/list")
     public Collection<MatchDto> listMatches() {
         return service.getAllMatch()
                 .stream()
                 .map(model -> MatchDto.builder()
+                        .id(model.getId())
                         .team1(model.getTeam1())
                         .team1Location(model.getTeam1Location())
                         .team2(model.getTeam2())
@@ -38,10 +39,11 @@ public class MatchController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/match")
+    @PostMapping("/match/record")
     public void record(@RequestBody MatchDto matchDto) {
         try {
             service.recordMatch(new Match(
+                    matchDto.getId(),
                     matchDto.getTeam1(),
                     matchDto.getTeam1Location(),
                     matchDto.getTeam2(),
@@ -58,11 +60,11 @@ public class MatchController {
         }
     }
 
-    @DeleteMapping("/match")
-    private void deleteById(@RequestBody String id) {
-        try {
-            service.deleteMatch(id);
-        } catch (UnknownMatchException e) {
+    @DeleteMapping("/match/delete")
+    public void deleteMatch(@RequestBody MatchDto matchDto){
+        try{
+            service.deleteMatch(matchDto.getId());
+        } catch(UnknownMatchException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }

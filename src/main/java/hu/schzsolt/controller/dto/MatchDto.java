@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchDto {
+    private String id;
     private Integer team1;
     private String team1Location;
     private Integer team2;

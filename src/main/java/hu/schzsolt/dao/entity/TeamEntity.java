@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class TeamEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tid")
     private Integer id;
 

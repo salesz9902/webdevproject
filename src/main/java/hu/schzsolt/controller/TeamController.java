@@ -20,7 +20,7 @@ public class TeamController {
 
     private final TeamService service;
 
-    @GetMapping("/teams/list")
+    @GetMapping("/team/list")
     public Collection<TeamDto> listTeam(){
         return service.getAllTeam().stream()
                 .map(model -> new TeamDto(
@@ -34,18 +34,6 @@ public class TeamController {
     public void record(@RequestBody TeamDto teamDto) {
         try {
             service.recordTeam(new Team(
-                    teamDto.getId(),
-                    teamDto.getTeamName()
-            ));
-        } catch (UnknownTeamException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-    @PostMapping("/team/update")
-    public void updateTeam(@RequestBody TeamDto teamDto){
-        try {
-            service.updateTeam(new Team(
                     teamDto.getId(),
                     teamDto.getTeamName()
             ));

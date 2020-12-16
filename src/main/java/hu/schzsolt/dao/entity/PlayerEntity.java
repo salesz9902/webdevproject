@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 public class PlayerEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pid")
     private Integer id;
 

@@ -19,5 +19,5 @@ public interface MatchDao {
     void createMatch(Match match) throws UnknownTeamException;
     Collection<Match> readAll();
 
-    void deleteMatch(String match) throws UnknownMatchException;
+    void deleteMatch(String id) throws UnknownMatchException;
 }

@@ -19,7 +19,5 @@ public interface TeamDao {
     void createTeam(Team team) throws UnknownTeamException;
     Collection<Team> readAll();
 
-    void updateTeam(Team team) throws UnknownTeamException;
-
     void deleteTeam(Integer team) throws UnknownTeamException;
 }

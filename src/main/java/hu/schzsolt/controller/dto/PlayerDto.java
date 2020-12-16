@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlayerDto {
+    private Integer id;
     private String firstName;
     private String lastName;
     private Integer height;

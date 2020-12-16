@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class MatchEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mid")
     private String id;
 

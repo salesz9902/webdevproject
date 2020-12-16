@@ -24,8 +24,8 @@ public class MatchDaoImpl implements MatchDao{
     @Override
     public void createMatch(Match match) throws UnknownTeamException {
         MatchEntity matchEntity;
-
         matchEntity = MatchEntity.builder()
+                .id(match.getId())
                 .team1(queryTeam(match.getTeam1()))
                 .team1Location(match.getTeam1Location())
                 .team2(queryTeam(match.getTeam2()))
@@ -59,6 +59,7 @@ public class MatchDaoImpl implements MatchDao{
     public Collection<Match> readAll() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(),false)
                 .map(entity -> new Match(
+                        entity.getId(),
                         entity.getTeam1().getId(),
                         entity.getTeam1Location(),
                         entity.getTeam2().getId(),

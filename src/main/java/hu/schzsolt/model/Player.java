@@ -13,9 +13,18 @@ import java.sql.Timestamp;
 @EqualsAndHashCode
 public class Player {
 
+    private Integer id;
     private String firstName;
     private String lastName;
     private Integer height;
     private Integer weight;
     private Timestamp birthDate;
+
+    public Player(String firstName, String lastName, Integer height, Integer weight, Timestamp birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.height = height;
+        this.weight = weight;
+        this.birthDate = birthDate;
+    }
 }

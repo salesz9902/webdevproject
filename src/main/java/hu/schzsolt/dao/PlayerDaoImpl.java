@@ -24,6 +24,7 @@ public class PlayerDaoImpl implements PlayerDao{
         PlayerEntity playerEntity;
 
         playerEntity = PlayerEntity.builder()
+                .id(player.getId())
                 .firstName(player.getFirstName())
                 .lastName(player.getLastName())
                 .height(player.getHeight())
@@ -43,6 +44,7 @@ public class PlayerDaoImpl implements PlayerDao{
     public Collection<Player> readAll() {
         return StreamSupport.stream(playerRepository.findAll().spliterator(),false)
                 .map(entity -> new Player(
+                        entity.getId(),
                         entity.getFirstName(),
                         entity.getLastName(),
                         entity.getHeight(),

@@ -21,11 +21,12 @@ public class PlayerController {
 
     private final PlayerService service;
 
-    @GetMapping("/player")
+    @GetMapping("/player/list")
     public Collection<PlayerDto> listPlayers() {
         return service.getAllPlayer()
                 .stream()
                 .map(model -> PlayerDto.builder()
+                        .id(model.getId())
                         .firstName(model.getFirstName())
                         .lastName(model.getLastName())
                         .height(model.getHeight())
@@ -35,10 +36,11 @@ public class PlayerController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/player")
+    @PostMapping("/player/record")
     public void record(@RequestBody PlayerDto playerDto) {
         try {
             service.recordPlayer(new Player(
+                    playerDto.getId(),
                     playerDto.getFirstName(),
                     playerDto.getLastName(),
                     playerDto.getHeight(),
@@ -50,7 +52,7 @@ public class PlayerController {
         }
     }
 
-    @DeleteMapping("/player")
+    @DeleteMapping("/player/delete")
     private void deleteById(@RequestBody Integer id) {
         try {
             service.deletePlayer(id);
