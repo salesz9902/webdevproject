@@ -16,8 +16,8 @@ import java.util.Collection;
  */
 public interface MatchDao {
 
-    void createMatch(Match match) throws UnknownPlayerException, UnknownMatchException, UnknownLocationException, UnknownTeamException, UnknownGoalException, UnknownDisposalException;
+    void createMatch(Match match) throws UnknownTeamException;
     Collection<Match> readAll();
 
-    void deleteMatch(String match) throws UnknownPlayerException, UnknownMatchException;
+    void deleteMatch(String match) throws UnknownMatchException;
 }

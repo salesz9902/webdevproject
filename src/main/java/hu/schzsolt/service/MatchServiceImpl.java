@@ -22,12 +22,12 @@ public class MatchServiceImpl implements MatchService{
     }
 
     @Override
-    public void recordMatch(Match match) throws UnknownMatchException, UnknownPlayerException, UnknownTeamException, UnknownDisposalException, UnknownGoalException, UnknownLocationException {
+    public void recordMatch(Match match) throws  UnknownTeamException {
         matchDao.createMatch(match);
     }
 
     @Override
-    public void deleteMatch(String match) throws UnknownMatchException, UnknownPlayerException {
-        matchDao.deleteMatch(match);
+    public void deleteMatch(String id) throws UnknownMatchException {
+        matchDao.deleteMatch(id);
     }
 }

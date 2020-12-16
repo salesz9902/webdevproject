@@ -26,7 +26,6 @@ public class MatchController {
         return service.getAllMatch()
                 .stream()
                 .map(model -> MatchDto.builder()
-                        .location(model.getLocation())
                         .team1(model.getTeam1())
                         .team1Location(model.getTeam1Location())
                         .team2(model.getTeam2())
@@ -35,9 +34,6 @@ public class MatchController {
                         .winnerScore(model.getWinnerScore())
                         .loserScore(model.getLoserScore())
                         .winnerTeam(model.getWinnerTeam())
-                        .goals(model.getGoals())
-                        .kicks(model.getKicks())
-                        .disposals(model.getDisposals())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -46,7 +42,6 @@ public class MatchController {
     public void record(@RequestBody MatchDto matchDto) {
         try {
             service.recordMatch(new Match(
-                    matchDto.getLocation(),
                     matchDto.getTeam1(),
                     matchDto.getTeam1Location(),
                     matchDto.getTeam2(),
@@ -54,15 +49,12 @@ public class MatchController {
                     matchDto.getHomeTeam(),
                     matchDto.getWinnerScore(),
                     matchDto.getLoserScore(),
-                    matchDto.getWinnerTeam(),
-                    matchDto.getGoals(),
-                    matchDto.getKicks(),
-                    matchDto.getDisposals()
+                    matchDto.getWinnerTeam()
             ));
-        } catch (UnknownMatchException e) {
+        } catch (UnknownTeamException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (UnknownPlayerException | UnknownLocationException | UnknownTeamException | UnknownGoalException | UnknownDisposalException e) {
-            e.printStackTrace();
+        }catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -70,7 +62,7 @@ public class MatchController {
     private void deleteById(@RequestBody String id) {
         try {
             service.deleteMatch(id);
-        } catch (UnknownMatchException | UnknownPlayerException e) {
+        } catch (UnknownMatchException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
